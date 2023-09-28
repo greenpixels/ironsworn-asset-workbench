@@ -21,7 +21,10 @@ export function AssetCardEditor() {
 				rowGap: '1em',
 			}}
 		>
-			<AssetCardViewer card={card} />
+			<AssetCardViewer
+				card={card}
+				scale={1}
+			/>
 			<AssetCardForm
 				card={card}
 				setCard={setCard}
