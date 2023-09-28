@@ -1,4 +1,6 @@
 import ReactDOMServer from 'react-dom/server';
+import { AssetCard } from '../types/Card';
+import { CardTemplate } from '../components/AssetCardViewer/CardTemplate';
 
 export function convertJsxToHtmlString(jsx: JSX.Element) {
 	return ReactDOMServer.renderToStaticMarkup(jsx);
@@ -46,4 +48,25 @@ export function convertHtmlStringToSvg(
             `
 		)
 	);
+}
+
+export async function generatePngDataFromAssetCard(assetcard: AssetCard) {
+	const width = 750;
+	const height = 1050;
+	const cardSvg = createSvgFromJSX(
+		width,
+		height,
+		CardTemplate(assetcard, width, height)
+	);
+	return convertSvgToPng(cardSvg);
+}
+
+export function createSvgFromJSX(
+	width: number,
+	height: number,
+	jsx: JSX.Element
+) {
+	const jsxTemplate = jsx;
+	const htmlString = convertJsxToHtmlString(jsxTemplate);
+	return convertHtmlStringToSvg(htmlString, width, height);
 }

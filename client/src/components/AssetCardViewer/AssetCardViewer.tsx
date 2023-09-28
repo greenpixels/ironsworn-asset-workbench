@@ -1,38 +1,52 @@
-import { useEffect, useState } from 'react';
-import { Button, Spin } from 'antd';
+import { useEffect, useRef, useState } from 'react';
+import { Alert, Button, Spin } from 'antd';
 import { AssetCard } from '../../types/Card';
-import { CardTemplate } from './CardTemplate';
-import {
-	convertHtmlStringToSvg,
-	convertJsxToHtmlString,
-	convertSvgToPng,
-} from '../../helpers/Converters';
+import { useInView } from '../../helpers/hooks/useInView';
+import { generatePngDataFromAssetCard } from '../../helpers/Converters';
+import OriginalContentWarning from '../OriginalContentWarning/OriginalContentWarning';
 
-interface AssetCardViewerProps {
+type AssetCardViewerProps = {
 	card: AssetCard;
-}
-
-const imageWidth = 750;
-const imageHeight = 1050;
-const containerWidth = 300;
-const containerHeight = imageHeight * (containerWidth / imageWidth);
-const cardSizeStyle = {
-	width: containerWidth + 'px',
-	height: containerHeight + 'px',
+	scale: number;
+	hideDownload?: boolean;
+	isOriginal?: boolean;
+	hideOriginalBanner?: boolean;
+	onClick?: () => void;
 };
 
-export function AssetCardViewer(props: AssetCardViewerProps) {
+export function AssetCardViewer({
+	hideDownload = false,
+	hideOriginalBanner = false,
+	...props
+}: AssetCardViewerProps) {
 	const [src, setSrc] = useState<string>('');
 	const [loaded, setLoaded] = useState(false);
+	const [hideOriginalWarning, setHideOriginalWarning] = useState(false);
+	const imageWidth = 750;
+	const imageHeight = 1050;
+	const containerWidth = 300 * props.scale;
+	const containerHeight = imageHeight * (containerWidth / imageWidth);
+	const cardSizeStyle = {
+		width: containerWidth + 'px',
+		height: containerHeight + 'px',
+		maxWidth: containerWidth + 'px',
+		maxHeight: containerHeight + 'px',
+	};
+	const ref = useRef(null);
+	const inViewport = useInView(ref, '0px');
 	useEffect(() => {
-		const cardSvg = createCardSvg(props.card, 750, 1050);
-		convertSvgToPng(cardSvg).then((sourceString) => {
+		if (!inViewport) return;
+		generatePngDataFromAssetCard(props.card).then((sourceString) => {
 			setSrc(sourceString);
 		});
-	}, [props.card]);
+	}, [props.card, inViewport]);
 
 	return (
-		<div className={'flex mx-auto'}>
+		<div
+			ref={ref}
+			className={'flex mx-auto'}
+			onClick={props.onClick}
+		>
 			<div className={'flex flex-wrap flex-col gap-2'}>
 				<div style={cardSizeStyle}>
 					<Spin
@@ -41,10 +55,11 @@ export function AssetCardViewer(props: AssetCardViewerProps) {
 						spinning={!loaded}
 					>
 						<img
+							draggable={false}
 							style={{
 								...cardSizeStyle,
 								objectFit: 'contain',
-								background: 'lightgray',
+								background: '#F5F5F5',
 							}}
 							src={src}
 							width={containerWidth}
@@ -54,35 +69,48 @@ export function AssetCardViewer(props: AssetCardViewerProps) {
 							}}
 							loading="lazy"
 						/>
+						{!hideOriginalWarning &&
+							!hideOriginalBanner &&
+							props.isOriginal && (
+								<Alert
+									banner
+									showIcon
+									className={'absolute bottom-0 w-full'}
+									message={<b>Original</b>}
+									description={
+										<OriginalContentWarning
+											onHide={() => setHideOriginalWarning(true)}
+										/>
+									}
+									type="warning"
+								/>
+							)}
 					</Spin>
 				</div>
-
-				<Button
-					ghost
-					href={src}
-					target={'_blank'}
-					download={`asset-card-${props.card.category}-${props.card.title}`}
-					type="primary"
-				>
-					Download Image
-				</Button>
-				<Button
-					href={
-						'data:text/json;charset=utf-8,' +
-						encodeURIComponent(JSON.stringify(props.card))
-					}
-					target={'_blank'}
-					download={`asset-card-${props.card.category}-${props.card.title}.json`}
-				>
-					Download JSON
-				</Button>
+				{!hideDownload && (
+					<>
+						<Button
+							ghost
+							href={src}
+							target={'_blank'}
+							download={`asset-card-${props.card.category}-${props.card.title}`}
+							type="primary"
+						>
+							Download Image
+						</Button>
+						<Button
+							href={
+								'data:text/json;charset=utf-8,' +
+								encodeURIComponent(JSON.stringify(props.card))
+							}
+							target={'_blank'}
+							download={`asset-card-${props.card.category}-${props.card.title}.json`}
+						>
+							Download JSON
+						</Button>
+					</>
+				)}
 			</div>
 		</div>
 	);
-}
-
-function createCardSvg(card: AssetCard, width: number, height: number) {
-	const jsxTemplate = CardTemplate(card, width, height);
-	const htmlString = convertJsxToHtmlString(jsxTemplate);
-	return convertHtmlStringToSvg(htmlString, width, height);
 }
