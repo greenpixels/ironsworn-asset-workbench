@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { AssetCard } from '../../types/Card';
 import { CardTemplate } from './CardTemplate';
 import {
@@ -12,8 +12,19 @@ interface AssetCardViewerProps {
 	card: AssetCard;
 }
 
+const imageWidth = 750;
+const imageHeight = 1050;
+const containerWidth = 300;
+const containerHeight = imageHeight * (containerWidth / imageWidth);
+const cardSizeStyle = {
+	width: containerWidth + 'px',
+	height: containerHeight + 'px',
+};
+
 export function AssetCardViewer(props: AssetCardViewerProps) {
 	const [src, setSrc] = useState<string>('');
+	const [loaded, setLoaded] = useState(false);
+	console.log(loaded);
 	useEffect(() => {
 		const cardSvg = createCardSvg(props.card, 750, 1050);
 		convertSvgToPng(cardSvg).then((sourceString) => {
@@ -24,10 +35,30 @@ export function AssetCardViewer(props: AssetCardViewerProps) {
 	return (
 		<div className={'flex mx-auto'}>
 			<div className={'flex flex-wrap flex-col gap-2'}>
-				<img
-					style={{ objectFit: 'contain', width: '300px' }}
-					src={src}
-				/>
+				<div style={cardSizeStyle}>
+					<Spin
+						tip="Loading"
+						size="large"
+						spinning={!loaded}
+					>
+						<img
+							style={{
+								...cardSizeStyle,
+								objectFit: 'contain',
+								background: 'lightgray',
+							}}
+							src={src}
+							width={containerWidth}
+							height={containerHeight}
+							onLoad={() => {
+								setLoaded(true);
+								console.log('loaded');
+							}}
+							loading="lazy"
+						/>
+					</Spin>
+				</div>
+
 				<Button
 					ghost
 					href={src}
