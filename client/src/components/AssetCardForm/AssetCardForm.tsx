@@ -19,8 +19,7 @@ export function AssetCardForm(props: AssetCardFormProps) {
 				<Select
 					data-testid={'asset-card-form-category'}
 					placeholder={'Category'}
-					className={'flex-1'}
-					style={{ minWidth: '200px' }}
+					className={'flex-1 '}
 					value={card.category}
 					onChange={(value) => {
 						props.setCard({ ...card, category: value });
@@ -58,7 +57,7 @@ export function AssetCardForm(props: AssetCardFormProps) {
 					className={'flex-1 flex-grow flex'}
 				>
 					<Radio.Button
-						className={'flex-1'}
+						className={'flex-1 overflow-hidden whitespace-nowrap'}
 						value={true}
 					>
 						Name Field
@@ -139,6 +138,7 @@ function renderProperty(
 	return (
 		<div
 			data-testid={'asset-card-form-property'}
+			key={'asset-card-form-property-' + propertyIndex}
 			className={'w-full flex gap-2 flex-wrap flex-grow'}
 		>
 			<Button
@@ -163,7 +163,6 @@ function renderProperty(
 					{ label: '2 Indents', value: 2 },
 					{ label: '3 Indents', value: 3 },
 				]}
-				allowClear
 			/>
 			<Select
 				data-testid={'asset-card-form-property-upgrade'}
@@ -177,7 +176,6 @@ function renderProperty(
 					{ label: 'Can be upgraded', value: true },
 					{ label: 'Can not be upgraded', value: false },
 				]}
-				allowClear
 			/>
 			<div className="flex w-full gap-2 flex-wrap">
 				<Input
