@@ -6,7 +6,7 @@ import {
 	convertHtmlStringToSvg,
 	convertJsxToHtmlString,
 	convertSvgToPng,
-} from '../helpers/Converters';
+} from '../../helpers/Converters';
 
 interface AssetCardViewerProps {
 	card: AssetCard;
