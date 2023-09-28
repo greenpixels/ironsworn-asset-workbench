@@ -72,9 +72,10 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
 					</span>
 				)}
 				<span>{card.description}</span>
-				{card.properties.map((property) => {
+				{card.properties.map((property, index) => {
 					return (
 						<div
+							key={'property-' + index}
 							style={{
 								display: 'flex',
 								columnGap: '1em',
@@ -111,6 +112,7 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
 					>
 						{['+0', '+1', '+2', '+3', '+4', '+5'].map((entry, index) => (
 							<div
+								key={'health-' + index}
 								style={{
 									border: '1px solid black',
 									height: '100%',
