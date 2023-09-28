@@ -357,7 +357,7 @@ describe('Testing setCard-Prop in Description Input', async () => {
 
 describe('Testing AssetCard-Form Properties', async () => {
 	const mockSetter = vi.fn();
-	let properties = [
+	const properties = [
 		{
 			description: 'Description 1',
 			indents: 1,
@@ -425,7 +425,7 @@ describe('Testing AssetCard-Form Properties', async () => {
 	});
 
 	test('Should render indents options and fire its onChange event with the changed card', async () => {
-		let user = userEvent.setup();
+		const user = userEvent.setup();
 
 		const options = ['No Indent', '1 Indent', '2 Indents', '3 Indents'];
 
@@ -466,12 +466,12 @@ describe('Testing AssetCard-Form Properties', async () => {
 	});
 
 	test('Should render upgradeable options and fire its onChange event with the changed card', async () => {
-		let user = userEvent.setup();
+		const user = userEvent.setup();
 
 		const options = ['Can be upgraded', 'Can not be upgraded'];
 
 		for (const option of options) {
-			let expectedValue = option === options[0] ? true : false;
+			const expectedValue = option === options[0] ? true : false;
 			cleanup();
 			await test_ant_select_on_change_event(
 				{
