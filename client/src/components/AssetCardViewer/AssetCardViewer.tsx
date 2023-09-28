@@ -24,7 +24,6 @@ const cardSizeStyle = {
 export function AssetCardViewer(props: AssetCardViewerProps) {
 	const [src, setSrc] = useState<string>('');
 	const [loaded, setLoaded] = useState(false);
-	console.log(loaded);
 	useEffect(() => {
 		const cardSvg = createCardSvg(props.card, 750, 1050);
 		convertSvgToPng(cardSvg).then((sourceString) => {
@@ -52,7 +51,6 @@ export function AssetCardViewer(props: AssetCardViewerProps) {
 							height={containerHeight}
 							onLoad={() => {
 								setLoaded(true);
-								console.log('loaded');
 							}}
 							loading="lazy"
 						/>
