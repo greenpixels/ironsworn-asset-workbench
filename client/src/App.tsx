@@ -1,13 +1,15 @@
-import { Button } from 'antd';
+/** @format */
+
+import { Button } from "antd";
 
 function App() {
-	return (
-		<>
-			<div className="card">
-				<Button type="primary">Primary Button</Button>
-			</div>
-		</>
-	);
+    return (
+        <>
+            <div className="card">
+                <Button type="primary">Primary Button</Button>
+            </div>
+        </>
+    );
 }
 
 export default App;
