@@ -1,9 +1,6 @@
 # Ignore node_modules directories in all packages
 **/node_modules/
 
-# Ignore package-lock.json files in all packages
-**/package-lock.json
-
 # Ignore log files and build artifacts
 **/logs/
 **/build/
