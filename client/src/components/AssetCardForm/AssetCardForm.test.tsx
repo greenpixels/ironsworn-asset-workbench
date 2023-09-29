@@ -236,6 +236,7 @@ describe("Testing setCard-Prop in Health-Select", () => {
         for (const option of options) {
             const expectedValue = parseInt(option.charAt(0));
             cleanup();
+            console.log(`Before change event: ${option}`);
             await test_ant_select_on_change_event(
                 {
                     ...getMockCard(),
@@ -246,7 +247,9 @@ describe("Testing setCard-Prop in Health-Select", () => {
                 option,
                 user
             );
+            console.log(`After change event: ${option}`);
             await waitFor(() => {
+                console.log(`In wait-for: ${option}`);
                 expect(mockSetter).toHaveBeenCalledWith({
                     ...getMockCard(),
                     health: expectedValue,
