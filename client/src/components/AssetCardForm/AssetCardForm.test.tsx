@@ -40,16 +40,19 @@ async function test_ant_select_on_change_event(
     optionTitle: string,
     user: UserEvent
 ) {
-    render(<AssetCardForm card={mockCard} setCard={mockSetter} />);
+    const renderResult = render(
+        <AssetCardForm card={mockCard} setCard={mockSetter} />
+    );
 
-    const element = await screen.findByTestId(testId);
+    const element = await renderResult.findByTestId(testId);
     user.click(element.firstElementChild!);
 
-    const option = await screen.findByTitle(optionTitle);
+    const option = await renderResult.findByTitle(optionTitle);
     expect(option).not.toBeNull();
 
     user.hover(option);
     user.click(option);
+    return renderResult;
 }
 
 describe("Testing AssetCardForm Render", () => {
@@ -223,7 +226,7 @@ describe("Testing setCard-Prop in Health-Select", () => {
         mockSetter.mockClear();
     });
 
-    test("Should render health options and fire its onChange event with the changed card", async () => {
+    describe("Should render health options and fire its onChange event with the changed card", async () => {
         const options = [
             "0 Health",
             "1 Health",
@@ -235,24 +238,22 @@ describe("Testing setCard-Prop in Health-Select", () => {
 
         for (const option of options) {
             const expectedValue = parseInt(option.charAt(0));
-            cleanup();
-            console.log(`Before change event: ${option}`);
-            await test_ant_select_on_change_event(
-                {
-                    ...getMockCard(),
-                    health: expectedValue === 0 ? 1 : 0,
-                },
-                mockSetter,
-                "asset-card-form-health",
-                option,
-                user
-            );
-            console.log(`After change event: ${option}`);
-            await waitFor(() => {
-                console.log(`In wait-for: ${option}`);
-                expect(mockSetter).toHaveBeenCalledWith({
-                    ...getMockCard(),
-                    health: expectedValue,
+            test("Testing option " + option, async () => {
+                await test_ant_select_on_change_event(
+                    {
+                        ...getMockCard(),
+                        health: expectedValue === 0 ? 1 : 0,
+                    },
+                    mockSetter,
+                    "asset-card-form-health",
+                    option,
+                    user
+                );
+                await waitFor(() => {
+                    expect(mockSetter).toHaveBeenCalledWith({
+                        ...getMockCard(),
+                        health: expectedValue,
+                    });
                 });
             });
         }
@@ -417,7 +418,7 @@ describe("Testing AssetCard-Form Properties", async () => {
         });
     });
 
-    test("Should render indents options and fire its onChange event with the changed card", async () => {
+    describe("Should render indents options and fire its onChange event with the changed card", async () => {
         const user = userEvent.setup();
 
         const options = ["No Indent", "1 Indent", "2 Indents", "3 Indents"];
@@ -427,70 +428,72 @@ describe("Testing AssetCard-Form Properties", async () => {
             if (option === options[0]) {
                 expectedValue = 0;
             }
-            cleanup();
-            await test_ant_select_on_change_event(
-                {
-                    ...getMockCard(),
-                    properties: [
-                        {
-                            ...getMockCard().properties[0],
-                            indents: !expectedValue ? 1 : 0,
-                        },
-                    ],
-                },
-                mockSetter,
-                "asset-card-form-property-indents",
-                option,
-                user
-            );
+            test("Testing option " + option, async () => {
+                await test_ant_select_on_change_event(
+                    {
+                        ...getMockCard(),
+                        properties: [
+                            {
+                                ...getMockCard().properties[0],
+                                indents: !expectedValue ? 1 : 0,
+                            },
+                        ],
+                    },
+                    mockSetter,
+                    "asset-card-form-property-indents",
+                    option,
+                    user
+                );
 
-            await waitFor(async () => {
-                expect(mockSetter).toHaveBeenCalledWith({
-                    ...getMockCard(),
-                    properties: [
-                        {
-                            ...getMockCard().properties[0],
-                            indents: expectedValue,
-                        },
-                    ],
+                await waitFor(async () => {
+                    expect(mockSetter).toHaveBeenCalledWith({
+                        ...getMockCard(),
+                        properties: [
+                            {
+                                ...getMockCard().properties[0],
+                                indents: expectedValue,
+                            },
+                        ],
+                    });
                 });
             });
         }
     });
 
-    test("Should render upgradeable options and fire its onChange event with the changed card", async () => {
+    describe("Should render upgradeable options and fire its onChange event with the changed card", async () => {
         const user = userEvent.setup();
 
         const options = ["Can be upgraded", "Can not be upgraded"];
 
         for (const option of options) {
             const expectedValue = option === options[0] ? true : false;
-            cleanup();
-            await test_ant_select_on_change_event(
-                {
-                    ...getMockCard(),
-                    properties: [
-                        {
-                            ...getMockCard().properties[0],
-                            is_upgradeable: expectedValue ? false : true,
-                        },
-                    ],
-                },
-                mockSetter,
-                "asset-card-form-property-upgrade",
-                option,
-                user
-            );
+            test("Testing option " + option, async () => {
+                await test_ant_select_on_change_event(
+                    {
+                        ...getMockCard(),
+                        properties: [
+                            {
+                                ...getMockCard().properties[0],
+                                is_upgradeable: expectedValue ? false : true,
+                            },
+                        ],
+                    },
+                    mockSetter,
+                    "asset-card-form-property-upgrade",
+                    option,
+                    user
+                );
 
-            await waitFor(async () => {
-                expect(mockSetter).toHaveBeenCalledWith({
-                    ...getMockCard(),
-                    properties: [
-                        {
-                            ...getMockCard().properties[0],
-                            is_upgradeable: expectedValue,
-                        },
-                    ],
+                await waitFor(async () => {
+                    expect(mockSetter).toHaveBeenCalledWith({
+                        ...getMockCard(),
+                        properties: [
+                            {
+                                ...getMockCard().properties[0],
+                                is_upgradeable: expectedValue,
+                            },
+                        ],
+                    });
                 });
             });
         }
