@@ -246,7 +246,7 @@ describe("Testing setCard-Prop in Health-Select", () => {
                 option,
                 user
             );
-            await waitFor(async () => {
+            await waitFor(() => {
                 expect(mockSetter).toHaveBeenCalledWith({
                     ...getMockCard(),
                     health: expectedValue,
