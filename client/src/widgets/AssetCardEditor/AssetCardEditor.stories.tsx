@@ -6,9 +6,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { AssetCardEditor } from "./AssetCardEditor";
 
-//👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof AssetCardEditor> = {
-    component: AssetCardEditor,
+  component: AssetCardEditor,
 };
 
 export default meta;
