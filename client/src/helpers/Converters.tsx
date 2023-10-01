@@ -1,7 +1,7 @@
 /** @format */
 
 import ReactDOMServer from "react-dom/server";
-import { AssetCard } from "../types/Card";
+import { AssetCard } from "../types/AssetCard";
 import { CardTemplate } from "../components/AssetCardViewer/CardTemplate";
 
 export function convertJsxToHtmlString(jsx: JSX.Element) {

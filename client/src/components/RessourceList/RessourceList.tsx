@@ -1,10 +1,10 @@
 /** @format */
 
 import Search from "antd/es/input/Search";
-import { AssetCard } from "../../types/Card";
+import { AssetCard } from "../../types/AssetCard";
 import { RessourceMetadata } from "../../types/Metadata";
 import { AssetCardViewer } from "../AssetCardViewer/AssetCardViewer";
-import { Card, Tooltip } from "antd";
+import { Card, Empty, Tooltip } from "antd";
 import HeartOutlined from "@ant-design/icons/lib/icons/HeartOutlined";
 import HeartFilled from "@ant-design/icons/lib/icons/HeartFilled";
 import { DownloadOutlined, InfoCircleFilled } from "@ant-design/icons";
@@ -24,15 +24,19 @@ export function RessourceList(props: RessourceListProps) {
   return (
     <div>
       <Search placeholder="Search ..." />
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8 mt-8">
-        {props.entries.map((entry, index) => {
-          return (
-            <div key={index}>
-              {renderListRessource(entry.ressource, entry.meta, props.type)}
-            </div>
-          );
-        })}
-      </div>
+      {!props.entries.length ? (
+        <Empty className="mt-4" />
+      ) : (
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8 mt-8">
+          {props.entries.map((entry, index) => {
+            return (
+              <div key={index}>
+                {renderListRessource(entry.ressource, entry.meta, props.type)}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

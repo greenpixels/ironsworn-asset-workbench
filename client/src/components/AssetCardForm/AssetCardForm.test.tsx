@@ -9,7 +9,6 @@ import {
 } from "@testing-library/react";
 import { UserEvent, userEvent } from "@testing-library/user-event";
 import { AssetCardForm } from "./AssetCardForm";
-import { AssetCard } from "../../types/Card";
 import {
   test,
   describe,
@@ -19,6 +18,7 @@ import {
   beforeEach,
   MockedFunction,
 } from "vitest";
+import { AssetCard } from "../../../../shared/types/AssetCard";
 
 const getMockCard = (): AssetCard => {
   return {
@@ -30,6 +30,7 @@ const getMockCard = (): AssetCard => {
       { description: "", indents: 0, is_upgradeable: false, title: "" },
     ],
     title: "",
+    custom_fields: [],
   };
 };
 
@@ -315,6 +316,46 @@ describe("Test AssetCardForm", () => {
         expect(mockSetter).toHaveBeenCalledWith({
           ...getMockCard(),
           title: userInput,
+        });
+      });
+    });
+  });
+
+  describe("Testing setCard-Prop in Custom Fields Input", async () => {
+    const mockSetter = vi.fn();
+    const user = userEvent.setup();
+
+    beforeEach(() => {
+      cleanup();
+    });
+
+    test("Should call setCard when entering into Custom Fields Input and adding the option", async () => {
+      const userInput = "My Title";
+      const renderResult = render(
+        <AssetCardForm card={getMockCard()} setCard={mockSetter} />
+      );
+      const customFieldSelect = await screen.findByTestId(
+        "asset-card-form-custom-fields"
+      );
+
+      const customFieldSelectInput = customFieldSelect.querySelector(
+        "#rc_select_TEST_OR_SSR"
+      );
+
+      fireEvent.change(customFieldSelectInput!, {
+        target: { value: userInput },
+      });
+
+      const option = await renderResult.findByTitle(userInput);
+      expect(option).not.toBeNull();
+
+      user.hover(option);
+      user.click(option);
+
+      await waitFor(async () => {
+        expect(mockSetter).toHaveBeenCalledWith({
+          ...getMockCard(),
+          custom_fields: [userInput.toLocaleUpperCase()],
         });
       });
     });

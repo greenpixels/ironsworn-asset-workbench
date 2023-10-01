@@ -2,7 +2,10 @@
 
 import { Button, Card, Divider, Input, Radio, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { AssetCard, AssetCardProperty } from "../../types/Card";
+import {
+  AssetCard,
+  AssetCardProperty,
+} from "../../../../shared/types/AssetCard";
 
 export interface AssetCardFormProps {
   card: AssetCard;
@@ -50,6 +53,7 @@ export function AssetCardForm(props: AssetCardFormProps) {
             { label: "5 Health", value: 5 },
           ]}
         />
+
         <Radio.Group
           data-testid={"asset-card-form-name"}
           onChange={(e) => {
@@ -84,6 +88,19 @@ export function AssetCardForm(props: AssetCardFormProps) {
           placeholder={"Asset Title"}
           value={card.title}
           className={"flex-1 min-w-full"}
+        />
+        <Select
+          placeholder="Custom Fields ..."
+          data-testid={"asset-card-form-custom-fields"}
+          mode="tags"
+          style={{ width: "100%" }}
+          onChange={(value: Array<string>) => {
+            value = value.map((entry) => entry.toLocaleUpperCase());
+            props.setCard({
+              ...card,
+              custom_fields: [...value],
+            });
+          }}
         />
         <Divider />
         <TextArea

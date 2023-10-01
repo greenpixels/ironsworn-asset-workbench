@@ -1,9 +1,9 @@
 /** @format */
 
-import { useEffect, useRef, useState } from "react";
-import { AssetCard } from "../../types/Card";
+import { useEffect, useState } from "react";
 import { AssetCardViewer } from "../../components/AssetCardViewer/AssetCardViewer";
 import { AssetCardForm } from "../../components/AssetCardForm/AssetCardForm";
+import { AssetCard } from "../../../../shared/types/AssetCard";
 
 type AssetCardEditorProps = {
   initial?: AssetCard;
@@ -16,6 +16,7 @@ const defaultCard = {
   properties: [],
   health: 0,
   title: "Custom Title",
+  custom_fields: [],
 } satisfies AssetCard;
 
 export function AssetCardEditor({

@@ -1,6 +1,6 @@
 /** @format */
 
-import { AssetCard } from "../../types/Card";
+import { AssetCard } from "../../../../shared/types/AssetCard";
 
 export const HawkMockAssetCard = {
   category: "companion",
@@ -31,4 +31,5 @@ export const HawkMockAssetCard = {
     },
   ],
   title: "Hawk",
+  custom_fields: [],
 } satisfies AssetCard;

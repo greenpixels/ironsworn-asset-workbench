@@ -1,7 +1,7 @@
 /** @format */
 
 import Card from "antd/es/card/Card";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 type NewsProps = {
   message: string;

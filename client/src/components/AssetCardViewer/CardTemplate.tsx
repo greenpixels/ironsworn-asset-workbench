@@ -1,6 +1,6 @@
 /** @format */
 
-import { AssetCard } from "../../types/Card";
+import { AssetCard } from "../../../../shared/types/AssetCard";
 
 export function CardTemplate(card: AssetCard, width: number, height: number) {
   return (
@@ -19,11 +19,11 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
     >
       <div
         style={{
-          width: "125px",
-          height: "125px",
+          width: "135px",
+          height: "135px",
           borderRadius: "9999px",
           border: "0.5em solid white",
-          backgroundColor: "#3e3e3e",
+          backgroundColor: "#43454b",
           position: "absolute",
           right: "2em",
           top: "2em",
@@ -32,10 +32,10 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
       <span
         style={{
           fontSize: "2.25em",
-          padding: "0.5em 0.5em 0.25em 0.5em",
+          padding: "0.75em 0.5em 0.25em 0.75em",
           width: "100%",
           fontWeight: "700",
-          backgroundColor: "#3e3e3e",
+          backgroundColor: "#43454b",
           color: "white",
         }}
       >
@@ -100,39 +100,84 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
             </div>
           );
         })}
-        {card.health > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              boxSizing: "content-box",
-              bottom: "1em",
-              width: "calc(100% - 2em)",
-              height: "3.5em",
-              border: "1px solid black",
-              display: "flex",
-            }}
-          >
-            {["+0", "+1", "+2", "+3", "+4", "+5"].map((entry, index) => (
-              <div
-                key={"health-" + index}
-                style={{
-                  border: "1px solid black",
-                  height: "100%",
-                  flex: "1 1",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontWeight: 700,
-                  fontSize: "1.5em",
-                  fontFamily: "Arial",
-                  color: "#5F5F5F",
-                }}
-              >
-                {card.health >= index ? entry : "/"}
-              </div>
-            ))}
-          </div>
-        )}
+        <div
+          style={{
+            position: "absolute",
+            boxSizing: "content-box",
+            bottom: "1em",
+            width: "calc(100% - 2em)",
+            display: "flex",
+            textAlign: "center",
+            flexDirection: "column",
+            rowGap: "0.5em",
+            fontStretch: "expanded",
+          }}
+        >
+          {card.custom_fields.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                height: "3em",
+                width: "100%",
+                border: "1px solid black",
+              }}
+            >
+              {card.custom_fields.map((entry, index) => (
+                <div
+                  key={"custom-" + index}
+                  style={{
+                    border: "1px solid black",
+                    height: "100%",
+                    flex: "1 1",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontWeight: 700,
+                    fontSize: "1em",
+                    fontFamily: "Arial",
+                    color: "#5F5F5F",
+                    paddingLeft: "1.5em",
+                    paddingRight: "1.5em",
+                    wordWrap: "break-word",
+                    overflow: "hidden",
+                  }}
+                >
+                  {entry.toLocaleUpperCase()}
+                </div>
+              ))}
+            </div>
+          )}
+          {card.health > 0 && (
+            <div
+              style={{
+                display: "flex",
+                height: "2.6em",
+                width: "100%",
+                border: "1px solid black",
+              }}
+            >
+              {["+0", "+1", "+2", "+3", "+4", "+5"].map((entry, index) => (
+                <div
+                  key={"health-" + index}
+                  style={{
+                    border: "1px solid black",
+                    height: "100%",
+                    flex: "1 1",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontWeight: 700,
+                    fontSize: "1.5em",
+                    fontFamily: "Arial",
+                    color: "#5F5F5F",
+                  }}
+                >
+                  {card.health >= index ? entry : "/"}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

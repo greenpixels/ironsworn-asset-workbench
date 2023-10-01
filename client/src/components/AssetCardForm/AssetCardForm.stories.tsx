@@ -5,8 +5,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AssetCardForm } from "./AssetCardForm";
+import { AssetCard } from "../../../../shared/types/AssetCard";
 import { useState } from "react";
-import { AssetCard } from "../../types/Card";
 
 const meta: Meta<typeof AssetCardForm> = {
   component: AssetCardForm,
@@ -25,6 +25,7 @@ export const Default: Story = {
         properties: [],
         health: 0,
         title: "",
+        custom_fields: [],
       });
       return (
         <div>

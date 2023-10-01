@@ -13,16 +13,11 @@ export type AssetCardProperty = {
   description: string;
 };
 
-export type CardMetaInfo = {
-  creator: string;
-  is_original: boolean;
-  likes: number;
-};
-
 export interface AssetCard {
   category: AssetCardCategory;
   title: string;
   health: number;
+  custom_fields: Array<string>;
   has_name_field: boolean;
   description: string;
   properties: Array<AssetCardProperty>;
