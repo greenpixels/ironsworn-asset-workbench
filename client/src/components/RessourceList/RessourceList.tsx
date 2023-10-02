@@ -4,13 +4,15 @@ import Search from "antd/es/input/Search";
 import { AssetCard } from "@shared/types/AssetCard";
 import { RessourceMetadata } from "@shared/types/Metadata";
 import { AssetCardViewer } from "../AssetCardViewer/AssetCardViewer";
-import { Card, Empty, Tooltip } from "antd";
+import { Button, Card, Divider, Empty, Modal, Spin, Tooltip } from "antd";
 import HeartOutlined from "@ant-design/icons/lib/icons/HeartOutlined";
 import HeartFilled from "@ant-design/icons/lib/icons/HeartFilled";
 import { DownloadOutlined, InfoCircleFilled } from "@ant-design/icons";
 import { generatePngDataFromAssetCard } from "../../helpers/Converters";
 import OriginalContentWarning from "../OriginalContentWarning/OriginalContentWarning";
 import Link from "antd/es/typography/Link";
+import { useState } from "react";
+import useScaleBreakpoints from "../../helpers/hooks/useScaleBreakpoints";
 
 export type RessourceType = AssetCard;
 type RessourceTypeLimiter = "asset card";
@@ -21,8 +23,33 @@ type RessourceListProps = {
 };
 
 export function RessourceList(props: RessourceListProps) {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const scale = useScaleBreakpoints();
+
+  const [previewData, setPreviewData] = useState<{
+    ressource: RessourceType;
+    meta: RessourceMetadata;
+  } | null>(null);
+
   return (
     <div>
+      <Modal
+        title={"Preview"}
+        centered
+        okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
+        onCancel={() => setPreviewOpen(false)}
+        open={previewOpen}
+      >
+        <Divider />
+        <div className="flex w-full flex-col py-4">
+          {renderModalContent(props.type, previewData, scale)}
+          <Divider />
+          <Button type="default" className="w-44 mx-auto my-4">
+            View In Editor
+          </Button>
+        </div>
+      </Modal>
       <Search placeholder="Search ..." />
       {!props.entries.length ? (
         <Empty className="mt-4" />
@@ -31,7 +58,18 @@ export function RessourceList(props: RessourceListProps) {
           {props.entries.map((entry, index) => {
             return (
               <div key={index}>
-                {renderListRessource(entry.ressource, entry.meta, props.type)}
+                {renderListRessource(
+                  entry.ressource,
+                  entry.meta,
+                  props.type,
+                  () => {
+                    setPreviewData({
+                      ressource: entry.ressource,
+                      meta: entry.meta,
+                    });
+                    setPreviewOpen(true);
+                  }
+                )}
               </div>
             );
           })}
@@ -41,10 +79,28 @@ export function RessourceList(props: RessourceListProps) {
   );
 }
 
+function renderModalContent(
+  type: RessourceTypeLimiter,
+  data: {
+    ressource: RessourceType;
+    meta: RessourceMetadata;
+  } | null,
+  scale: number
+) {
+  if (data === null) {
+    return <Spin />;
+  }
+  switch (type) {
+    case "asset card":
+      return <AssetCardViewer card={data.ressource} scale={scale} />;
+  }
+}
+
 function renderListRessource(
   ressource: RessourceType,
   meta: RessourceMetadata,
-  type: RessourceTypeLimiter
+  type: RessourceTypeLimiter,
+  onClick: () => void
 ) {
   switch (type) {
     case "asset card":
@@ -88,6 +144,7 @@ function renderListRessource(
             className={"mx-auto"}
           >
             <div
+              onClick={onClick}
               className={
                 "transition ease-in duration-75 hover:scale-150 cursor-pointer mx-auto justify-center flex"
               }
