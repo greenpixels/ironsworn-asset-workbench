@@ -12,6 +12,11 @@ export default defineConfig({
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
   },
+  resolve: {
+    alias: {
+      "@shared": "../shared", // Adjust the path as needed
+    },
+  },
   test: {
     environment: "happy-dom",
     coverage: {

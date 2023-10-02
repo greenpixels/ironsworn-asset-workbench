@@ -1,8 +1,8 @@
 /** @format */
 
 import Search from "antd/es/input/Search";
-import { AssetCard } from "../../types/AssetCard";
-import { RessourceMetadata } from "../../types/Metadata";
+import { AssetCard } from "@shared/types/AssetCard";
+import { RessourceMetadata } from "@shared/types/Metadata";
 import { AssetCardViewer } from "../AssetCardViewer/AssetCardViewer";
 import { Card, Empty, Tooltip } from "antd";
 import HeartOutlined from "@ant-design/icons/lib/icons/HeartOutlined";

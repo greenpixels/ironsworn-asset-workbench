@@ -2,10 +2,9 @@
 
 import { Button, Card, Divider, Input, Radio, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {
-  AssetCard,
-  AssetCardProperty,
-} from "../../../../shared/types/AssetCard";
+import { AssetCard, AssetCardProperty } from "@shared/types/AssetCard";
+import CaretUpOutlined from "@ant-design/icons/lib/icons/CaretUpOutlined";
+import CaretDownOutlined from "@ant-design/icons/lib/icons/CaretDownOutlined";
 
 export interface AssetCardFormProps {
   card: AssetCard;
@@ -171,6 +170,18 @@ function renderProperty(
       >
         Remove
       </Button>
+      <Radio.Group data-testid={"asset-card-form-move-property"}>
+        <Radio.Button
+          onClick={() => moveProperty("up", propertyIndex, card, setCard)}
+        >
+          <CaretUpOutlined />
+        </Radio.Button>
+        <Radio.Button
+          onClick={() => moveProperty("down", propertyIndex, card, setCard)}
+        >
+          <CaretDownOutlined />
+        </Radio.Button>
+      </Radio.Group>
       <Select
         data-testid={"asset-card-form-property-indents"}
         placeholder={"Indents"}
@@ -241,4 +252,23 @@ function editProperty(
   const cardProperty = cardCopy.properties[propertyIndex];
   (cardProperty[key] as AssetCardProperty[typeof key]) = value;
   setCard(cardCopy);
+}
+
+function moveProperty(
+  direction: "up" | "down",
+  current: number,
+  card: AssetCard,
+  setCard: (card: AssetCard) => void
+) {
+  if (
+    (current === 0 && direction === "up") ||
+    (current === card.properties.length - 1 && direction === "down")
+  )
+    return;
+  const cardCopy = { ...card };
+  const properties = cardCopy.properties;
+  const element = properties[current];
+  properties.splice(current, 1);
+  properties.splice(current + (direction === "up" ? -1 : 1), 0, element);
+  setCard({ ...cardCopy, properties: [...properties] });
 }

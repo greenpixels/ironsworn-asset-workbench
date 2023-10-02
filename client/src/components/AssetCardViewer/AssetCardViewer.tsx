@@ -5,7 +5,7 @@ import { Alert, Button, Spin } from "antd";
 import { useInView } from "../../helpers/hooks/useInView";
 import { generatePngDataFromAssetCard } from "../../helpers/Converters";
 import OriginalContentWarning from "../OriginalContentWarning/OriginalContentWarning";
-import { AssetCard } from "../../../../shared/types/AssetCard";
+import { AssetCard } from "@shared/types/AssetCard";
 
 type AssetCardViewerProps = {
   card: AssetCard;

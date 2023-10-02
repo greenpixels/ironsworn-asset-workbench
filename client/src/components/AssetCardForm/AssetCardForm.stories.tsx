@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AssetCardForm } from "./AssetCardForm";
-import { AssetCard } from "../../../../shared/types/AssetCard";
+import { AssetCard } from "@shared/types/AssetCard";
 import { useState } from "react";
 
 const meta: Meta<typeof AssetCardForm> = {

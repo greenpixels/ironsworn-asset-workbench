@@ -1,6 +1,6 @@
 /** @format */
 
-import { AssetCard } from "../../../../shared/types/AssetCard";
+import { AssetCard } from "@shared/types/AssetCard";
 
 export function CardTemplate(card: AssetCard, width: number, height: number) {
   return (
@@ -13,7 +13,7 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        fontSize: "1.1em",
+        fontSize: "1.05em",
         fontFamily: "Georgia",
       }}
     >
@@ -55,7 +55,7 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
       <div
         style={{
           paddingLeft: "1em",
-          paddingRight: "1em",
+          paddingRight: "2em",
           display: "flex",
           flexDirection: "column",
           fontSize: "2em",
@@ -79,21 +79,24 @@ export function CardTemplate(card: AssetCard, width: number, height: number) {
             <div
               key={"property-" + index}
               style={{
+                position: "relative",
                 display: "flex",
+                marginBottom: "0.1em",
                 columnGap: "1em",
                 paddingLeft: property.indents * 2 + "em",
               }}
             >
               <span
                 style={{
-                  marginTop: "0.2em",
+                  position: "absolute",
+                  top: "0.2em",
                   fontSize: "0.66em",
                   scale: property.indents > 0 ? "50%" : "100%",
                 }}
               >
                 {property.is_upgradeable ? "⚪" : "⚫"}
               </span>
-              <span>
+              <span style={{ marginLeft: "1.5em" }}>
                 {property.title && <b>{property.title}: </b>}
                 {property.description}
               </span>

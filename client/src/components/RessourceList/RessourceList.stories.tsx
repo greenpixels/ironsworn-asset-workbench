@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RessourceList, RessourceType } from "./RessourceList";
 import { HawkMockAssetCard } from "../AssetCardViewer/Mocks";
-import { RessourceMetadata } from "../../types/Metadata";
+import { RessourceMetadata } from "@shared/types/Metadata";
 
 const meta: Meta<typeof RessourceList> = {
   component: RessourceList,

@@ -3,7 +3,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AssetCardViewer } from "./AssetCardViewer";
-import { HawkMockAssetCard } from "./Mocks";
+import {
+  FletcherMockAssetCard,
+  HawkMockAssetCard,
+  IroncladMockAssetCard,
+} from "./Mocks";
 
 const meta: Meta<typeof AssetCardViewer> = {
   component: AssetCardViewer,
@@ -12,17 +16,31 @@ const meta: Meta<typeof AssetCardViewer> = {
 export default meta;
 type Story = StoryObj<typeof AssetCardViewer>;
 
-export const Default: Story = {
+export const Original: Story = {
+  args: {
+    card: HawkMockAssetCard,
+    scale: 1,
+    isOriginal: true,
+  },
+};
+
+export const Hawk: Story = {
   args: {
     card: HawkMockAssetCard,
     scale: 1,
   },
 };
 
-export const Original: Story = {
+export const Ironclad: Story = {
   args: {
-    card: HawkMockAssetCard,
+    card: IroncladMockAssetCard,
     scale: 1,
-    isOriginal: true,
+  },
+};
+
+export const Fletcher: Story = {
+  args: {
+    card: FletcherMockAssetCard,
+    scale: 1,
   },
 };

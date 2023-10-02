@@ -18,7 +18,7 @@ import {
   beforeEach,
   MockedFunction,
 } from "vitest";
-import { AssetCard } from "../../../../shared/types/AssetCard";
+import { AssetCard } from "@shared/types/AssetCard";
 
 const getMockCard = (): AssetCard => {
   return {
