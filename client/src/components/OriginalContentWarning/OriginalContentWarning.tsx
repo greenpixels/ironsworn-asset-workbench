@@ -13,13 +13,20 @@ export default function OriginalContentWarning(
   return (
     <div>
       <span>
-        This is one of the original assets of ironsworn. To support the original
-        creators, please visit:
+        {"This work is from "}
+        <Link href="https://www.ironswornrpg.com" target="_blank">
+          Ironsworn
+        </Link>
+        {", created by Shawn Tomkin, and licensed for use under the "}
+        <Link
+          href="https://www.creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+        >
+          Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+          International
+        </Link>
+        {" license."}
       </span>
-      <br />
-      <Link href="https://www.ironswornrpg.com/" target="_blank">
-        https://www.ironswornrpg.com/
-      </Link>
 
       {props.onHide && (
         <>
