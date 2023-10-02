@@ -8,14 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 type SidebarProps = {
   showDrawer: boolean;
-  id: string;
 };
 
 export function Sidebar(props: SidebarProps) {
   const navigate = useNavigate();
   return (
     <div
-      id={props.id}
       className={
         "transition ease-in-out z-10 absolute top-0 bottom-0 " +
         (!props.showDrawer

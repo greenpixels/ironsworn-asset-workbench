@@ -31,7 +31,7 @@ export function App() {
         </span>
       </Header>
       <div className="flex relative h-full">
-        <Sidebar id="test" showDrawer={showDrawer} />
+        <Sidebar showDrawer={showDrawer} />
         <Layout className="h-full w-full" style={{ padding: "0 24px 24px" }}>
           <Breadcrumb
             style={{ margin: "16px 0" }}
