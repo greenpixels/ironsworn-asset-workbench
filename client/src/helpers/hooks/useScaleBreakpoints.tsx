@@ -25,7 +25,7 @@ export default function useScaleBreakpoints(props = defaultBreakpoints) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [props]);
 
   return scale;
 }

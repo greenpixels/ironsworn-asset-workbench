@@ -1,6 +1,6 @@
 /** @format */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AssetCardViewer } from "../../components/AssetCardViewer/AssetCardViewer";
 import { AssetCardForm } from "../../components/AssetCardForm/AssetCardForm";
 import { AssetCard } from "@shared/types/AssetCard";
