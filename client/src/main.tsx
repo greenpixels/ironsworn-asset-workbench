@@ -6,9 +6,9 @@ import { App } from "./App.tsx";
 import "./global.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { PageAssetCardEditor } from "./pages/PageAssetCardEditor.tsx";
-import { PageNews } from "./pages/PageNews.tsx";
-import { PageAssetCardsExplore } from "./pages/PageAssetCardsExplore.tsx";
+import { PageAssetCardEditor } from "./ui/pages/PageAssetCardEditor.tsx";
+import { PageAssetCardsExplore } from "./ui/pages/PageAssetCardsExplore.tsx";
+import { PageNews } from "./ui/pages/PageNews.tsx";
 const router = createBrowserRouter([
   {
     path: "/",

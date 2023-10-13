@@ -2,7 +2,7 @@
 
 import ReactDOMServer from "react-dom/server";
 import { AssetCard } from "@shared/types/AssetCard";
-import { CardTemplate } from "../components/AssetCardViewer/CardTemplate";
+import { CardTemplate } from "../ui/components/AssetCardViewer/CardTemplate";
 
 export function convertJsxToHtmlString(jsx: JSX.Element) {
   return ReactDOMServer.renderToStaticMarkup(jsx);

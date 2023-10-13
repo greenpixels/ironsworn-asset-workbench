@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AssetCardViewer } from "../../components/AssetCardViewer/AssetCardViewer";
 import { AssetCardForm } from "../../components/AssetCardForm/AssetCardForm";
 import { AssetCard } from "@shared/types/AssetCard";
-import useScaleBreakpoints from "../../helpers/hooks/useScaleBreakpoints";
+import useScaleBreakpoints from "../../../helpers/hooks/useScaleBreakpoints";
 
 type AssetCardEditorProps = {
   initial?: AssetCard;

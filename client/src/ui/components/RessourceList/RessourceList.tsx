@@ -8,11 +8,11 @@ import { Button, Card, Divider, Empty, Modal, Spin, Tooltip } from "antd";
 import HeartOutlined from "@ant-design/icons/lib/icons/HeartOutlined";
 import HeartFilled from "@ant-design/icons/lib/icons/HeartFilled";
 import { DownloadOutlined, InfoCircleFilled } from "@ant-design/icons";
-import { generatePngDataFromAssetCard } from "../../helpers/Converters";
 import OriginalContentWarning from "../OriginalContentWarning/OriginalContentWarning";
 import Link from "antd/es/typography/Link";
 import { useState } from "react";
-import useScaleBreakpoints from "../../helpers/hooks/useScaleBreakpoints";
+import useScaleBreakpoints from "../../../helpers/hooks/useScaleBreakpoints";
+import { generatePngDataFromAssetCard } from "../../../helpers/Converters";
 
 export type RessourceType = AssetCard;
 type RessourceTypeLimiter = "asset card";

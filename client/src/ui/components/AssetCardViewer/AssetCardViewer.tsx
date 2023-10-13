@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Spin } from "antd";
-import { useInView } from "../../helpers/hooks/useInView";
-import { generatePngDataFromAssetCard } from "../../helpers/Converters";
 import OriginalContentWarning from "../OriginalContentWarning/OriginalContentWarning";
 import { AssetCard } from "@shared/types/AssetCard";
+import { useInView } from "../../../helpers/hooks/useInView";
+import { generatePngDataFromAssetCard } from "../../../helpers/Converters";
 
 type AssetCardViewerProps = {
   card: AssetCard;

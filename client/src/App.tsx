@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Breadcrumb, Button, Layout, theme } from "antd";
 import { Outlet, useLocation } from "react-router-dom";
 import MenuOutlined from "@ant-design/icons/lib/icons/MenuOutlined";
-import { Sidebar } from "./components/Sidebar/Sidebar";
+import { Sidebar } from "./ui/components/Sidebar/Sidebar";
 
 const { Header, Content } = Layout;
 
